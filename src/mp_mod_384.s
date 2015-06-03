@@ -6,7 +6,7 @@
 mp_mod_384:
 .LFB0:
 	.cfi_startproc
-#	uint64_t mp_mod_384 (uint64_t r[6], uint64_t a[12])
+#	uint64_t mp_mod_384(uint64_t r[6], uint64_t a[12])
 #	rdi = r[]
 #	rsi = c[]
 #	-----------------------------------
@@ -253,9 +253,11 @@ mp_mod_384:
 	sbbq	%rcx, %r14
 	sbbq	$0, %r15
 	sbbq	$0, %rdx
-#	----
-#	p384
-#	----
+#	|-----------------------|
+#	|         p384          |
+#	|---|---|---|---|---|---|
+#	|r8 |r9 |rsi|rax|rax|rax|
+#	|---|---|---|---|---|---|
 	xorq	%rax, %rax
 	notq	%rax
 	movq	%rax, %r8
@@ -276,8 +278,8 @@ mp_mod_384:
 	movq	%xmm6, %rcx
 	subq	%rcx, %r15
 	sbbq	$0, %rdx
-	jc	.minus
-.reduce:
+	jc	.L2
+.L1:
 	subq	%r8, %r10
 	sbbq	%r9, %r11
 	sbbq	%rsi, %r12
@@ -285,9 +287,9 @@ mp_mod_384:
 	sbbq	%rax, %r14
 	sbbq	%rax, %r15
 	sbbq	$0, %rdx
-	jnc	.reduce
+	jnc	.L1
 #	-------------------
-.minus:
+.L2:
 	addq	%r8, %r10
 	adcq	%r9, %r11
 	adcq	%rsi, %r12
