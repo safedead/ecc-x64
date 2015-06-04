@@ -181,12 +181,11 @@ mp_mod_sm2:
 #	|---|-------------|---|--------|---|
 	movq	%rax, %rdx	#rdx = n - 1
 	movq	%rax, %r12	#r12 = n - 1
+	incq	%r12		#r12 = n
 	movq	%rax, %r13	#r13 = n - 1
+	movq	%r12, %r15	#r15 = n
 	xorq	%r14, %r14	#r14 = 0
 	notq	%r14		#r14 = !0
-	movq	%rax, %r15	#r15 = n - 1
-	incq	%r12		#r12 = n
-	incq	%r15		#r15 = n
 	negq	%r12		#r12 = -n
 	shlq	$32, %r15	#r15 = (n << 32)
 	subq	%r15, %r13	#r13 = (n - 1) - (n << 32)
@@ -207,10 +206,9 @@ mp_mod_sm2:
 #	|---|---|---|---|
 	xorq	%r12, %r12
 	xorq	%r13, %r13
-	xorq	%r14, %r14
 	notq	%r12
+	movq	%r12, %r14
 	not	%r13d
-	notq	%r14
 	notq	%r13
 	movq	%r13, %r15
 	decq	%r15
@@ -230,6 +228,7 @@ mp_mod_sm2:
 	movq	%r10, %xmm5
 	pinsrq	$1, %r9, %xmm4
 	pinsrq	$1, %r11, %xmm5
+.L2:
 #	----------------------------
 #	restore (r12, r13, r14, r15)
 #	----------------------------
