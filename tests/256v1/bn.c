@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
 	//process
 	BN_mul(c, a, b, ctx);//c = a * b
 	BN_mod(r, c, p, ctx);//r = c mod p
+	BN_mod_inverse(r, a, p, ctx);//r = a ^ (-1) mod p
 
 	//output
 	hex = BN_bn2hex(c);

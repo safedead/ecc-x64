@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "mp_mul_384.h"
-#include "mp_mod_384.h"
+#include "mp_mul.h"
+#include "mp_mod.h"
 
 void hex_out(FILE *fp, uint64_t data[], uint64_t size)
 {
