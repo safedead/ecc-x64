@@ -6,6 +6,10 @@
 
 #include <gmp.h>
 
+char *Gx = "32C4AE2C1F1981195F9904466A39C9948FE30BBFF2660BE1715A4589334C74C7";
+char *Gy = "BC3736A2F4F6779C59BDCEE36B692153D0A9877CC62A474002DF32E52139F0A0";
+char *P  = "FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFF";
+
 int main(int argc, char *argv[])
 {
 	mpz_t	a, b, c, p, r;
@@ -18,9 +22,9 @@ int main(int argc, char *argv[])
 	mpz_init2(r, 256);
         
 	//input
-	mpz_init_set_str(a, "32C4AE2C1F1981195F9904466A39C9948FE30BBFF2660BE1715A4589334C74C7", 16);
-	mpz_init_set_str(b, "BC3736A2F4F6779C59BDCEE36B692153D0A9877CC62A474002DF32E52139F0A0", 16);
-	mpz_init_set_str(p, "FFFFFFFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFF", 16);
+	mpz_init_set_str(a, Gx, 16);
+	mpz_init_set_str(b, Gy, 16);
+	mpz_init_set_str(p, P , 16);
 
 	//process
 	mpz_mul(c, a, b);//c = a * b

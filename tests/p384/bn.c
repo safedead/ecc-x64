@@ -6,6 +6,10 @@
 
 #include <openssl/bn.h>
 
+char *Gx = "aa87ca22be8b05378eb1c71ef320ad746e1d3b628ba79b9859f741e082542a385502f25dbf55296c3a545e3872760aB7";
+char *Gy = "3617de4a96262c6f5d9e98bf9292dc29f8f41dbd289a147ce9da3113b5f0b8c00a60b1ce1d7e819d7a431d7c90ea0e5F";
+char *P  = "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffff0000000000000000ffffffff";
+
 int main(int argc, char *argv[])
 {
 	BIGNUM	*a, *b, *c, *p, *r;
@@ -21,9 +25,9 @@ int main(int argc, char *argv[])
 	ctx = BN_CTX_new();
 
 	//input
-	BN_hex2bn(&a, "aa87ca22be8b05378eb1c71ef320ad746e1d3b628ba79b9859f741e082542a385502f25dbf55296c3a545e3872760aB7");
-	BN_hex2bn(&b, "3617de4a96262c6f5d9e98bf9292dc29f8f41dbd289a147ce9da3113b5f0b8c00a60b1ce1d7e819d7a431d7c90ea0e5F");
-	BN_hex2bn(&p, "fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffeffffffff0000000000000000ffffffff");
+	BN_hex2bn(&a, Gx);
+	BN_hex2bn(&b, Gy);
+	BN_hex2bn(&p, P);
 
 	//process
 	BN_mul(c, a, b, ctx);//c = a * b

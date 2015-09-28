@@ -11,7 +11,7 @@ void hex_out(FILE *fp, uint64_t data[], uint64_t size)
 	uint64_t	i;
 
 	for(i = 0; i < size; i++) fprintf(fp, "%016lx", data[size - i - 1]);
-	fprintf(fp, "\r\n");
+	fprintf(fp, "\n");
 	return;
 }
 
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	a[2] = 0x59f741e082542a38;
 	a[1] = 0x5502f25dbf55296c;
 	a[0] = 0x3a545e3872760aB7;
-
+	
 	b[5] = 0x3617de4a96262c6f;
 	b[4] = 0x5d9e98bf9292dc29;
 	b[3] = 0xf8f41dbd289a147c;
@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
 	//process
 	mp_mul_384(c, a, b);//c = a * b
-	mp_mod_384(r, c);//r = c mod p384
+	mp_mod_384(r, c);//r = c mod p
 	
 	//output
 	hex_out(stdout, c, 12);

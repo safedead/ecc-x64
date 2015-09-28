@@ -6,9 +6,9 @@
 
 #include <openssl/bn.h>
 
-char *Gx = "79BE667EF9DCBBAC55A06295CE870B07029BFCDB2DCE28D959F2815B16F81798";
-char *Gy = "483ADA7726A3C4655DA4FBFC0E1108A8FD17B448A68554199C47D08FFB10D4B8";
-char *P  = "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFC2F";
+char *Gx = "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296";
+char *Gy = "4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5";
+char *P  = "ffffffff00000001000000000000000000000000ffffffffffffffffffffffff";
 
 int main(int argc, char *argv[])
 {
@@ -32,13 +32,14 @@ int main(int argc, char *argv[])
 	//process
 	BN_mul(c, a, b, ctx);//c = a * b
 	BN_mod(r, c, p, ctx);//r = c mod p
+	//BN_mod_inverse(r, a, p, ctx);//r = a ^ (-1) mod p
 
 	//output
 	hex = BN_bn2hex(c);
-	fprintf(stdout, "%s\r\n", hex);
+	fprintf(stdout, "%s\n", hex);
 	OPENSSL_free(hex);
 	hex = BN_bn2hex(r);
-	fprintf(stdout, "%s\r\n", hex);
+	fprintf(stdout, "%s\n", hex);
 	OPENSSL_free(hex);
 
 	//free
