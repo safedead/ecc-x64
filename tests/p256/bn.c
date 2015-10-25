@@ -10,11 +10,18 @@ char *Gx = "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296";
 char *Gy = "4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5";
 char *P  = "ffffffff00000001000000000000000000000000ffffffffffffffffffffffff";
 
-int main(int argc, char *argv[])
+void hex_out(FILE *fp, uint64_t data[], uint64_t size)
+{
+	uint64_t	i;
+
+	for(i = 0; i < size; i++) fprintf(fp, "%016lx", data[size - i - 1]);
+	return;
+}
+
+void mul_and_mod(void)
 {
 	BIGNUM	*a, *b, *c, *p, *r;
 	BN_CTX	*ctx;
-	char	*hex = NULL;
 	
 	//init
 	a = BN_new();
@@ -35,12 +42,8 @@ int main(int argc, char *argv[])
 	//BN_mod_inverse(r, a, p, ctx);//r = a ^ (-1) mod p
 
 	//output
-	hex = BN_bn2hex(c);
-	fprintf(stdout, "%s\n", hex);
-	OPENSSL_free(hex);
-	hex = BN_bn2hex(r);
-	fprintf(stdout, "%s\n", hex);
-	OPENSSL_free(hex);
+	hex_out(stdout, c->d, c->top); fprintf(stdout, " c = a * b\n");
+	hex_out(stdout, r->d, r->top); fprintf(stdout, " r = c mod p\n");
 
 	//free
 	BN_free(a);
@@ -49,7 +52,13 @@ int main(int argc, char *argv[])
 	BN_free(p);
 	BN_free(r);
 	BN_CTX_free(ctx);
+}
         
+int main(int argc, char *argv[])
+{
+	//base test
+	mul_and_mod();
+
 	exit(EXIT_SUCCESS);
 }
 
